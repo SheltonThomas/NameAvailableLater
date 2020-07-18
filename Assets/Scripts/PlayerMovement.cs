@@ -8,14 +8,17 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float movementSpeed = 5f;
+    public float dashDistance = 3f;
 
-    public Rigidbody2D rigidbody; //Player character's rigid body used to control where the character is
+    public Rigidbody2D rigidBody; //Player character's rigid body used to control where the character is
     public Animator animator;
     public Camera cam;
 
+    bool spacePressed;
+
     Vector2 movement;
     Vector2 mousePosition;
-    //Vector2 playerDirection;
+    Vector2 playerDirection;
 
     //float playerAngle;
 
@@ -26,17 +29,28 @@ public class PlayerMovement : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize();
 
+        spacePressed = Input.GetKeyDown("space"); //True if the player started pressing space on that frame. Needs to be kept in Update because this state gets reset each frame
+
+        if (spacePressed)
+        {
+            playerDirection.Normalize();
+            rigidBody.MovePosition(rigidBody.position + dashDistance * playerDirection); //Dashing a set distance in the direction the player is looking in
+        }
+        else
+        {
+            rigidBody.MovePosition(rigidBody.position + movement * movementSpeed * Time.deltaTime);
+        }
+
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);   //Gets mouse position and transfers it from pixel coordinates to world units
+        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition); //Gets mouse position and transfers it from pixel coordinates to world units
     }
 
     void FixedUpdate()
     {
-        rigidbody.MovePosition(rigidbody.position + movement * movementSpeed * Time.fixedDeltaTime);
+        playerDirection = mousePosition - rigidBody.position; //Finding the vector starting from the player to the mouse position
+        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg + 90f; //Getting the angle that the vector creates to rotate the character towards the mouse
+        rigidBody.rotation = playerAngle;
 
-        Vector2 playerDirection = mousePosition - rigidbody.position; //Finding the vector starting from the player to the mouse position
-        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg  + 90f;//getting the angle that the vector creates to rotate the character towards the mouse
-        rigidbody.rotation = playerAngle;
     }
 }

@@ -24,6 +24,26 @@ public class InventoryItems : MonoBehaviour
         if (other.gameObject.tag == "Item")
         {
             Inventory.Add(prefabs[other.gameObject.name]);
+            Destroy(other.gameObject);
+        }
+    }
+
+    public int Count {
+        get
+        {
+            return Inventory.Count;
+        }
+    }
+
+    public GameObject this[int index]
+    {
+        get
+        {
+            return Inventory[index];
+        }
+        set
+        {
+            Inventory[index] = value;
         }
     }
 }

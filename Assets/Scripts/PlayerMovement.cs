@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float movementSpeed = 5f;
+    public float movementSpeed = 10f;
     public float dashDistance = 3f;
 
     public Rigidbody2D rigidBody; //Player character's rigid body used to control where the character is

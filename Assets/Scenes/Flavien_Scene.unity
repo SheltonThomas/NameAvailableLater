@@ -2101,7 +2101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  rigidbody: {fileID: 1274749555}
+  dashDistance: 3
+  rigidBody: {fileID: 1274749555}
   animator: {fileID: 1274749558}
   cam: {fileID: 2019478394}
 --- !u!50 &1274749555

@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b66904fe00f1fe4fa217ac0f8fad176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 5
   dashDistance: 3
   rigidBody: {fileID: 1274749555}
   animator: {fileID: 1274749558}

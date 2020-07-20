@@ -20,7 +20,6 @@ public class InventoryBehavior : MonoBehaviour
         {
             inventorySlots.Add(child.gameObject);
         }
-        Debug.Log("Done");
     }
 
     private void Update()
@@ -30,6 +29,24 @@ public class InventoryBehavior : MonoBehaviour
             Image buttonImage = inventorySlots[i].GetComponent<Image>();
             Sprite buttonSprite = inventory[i].GetComponent<SpriteRenderer>().sprite;
             buttonImage.sprite = buttonSprite;
+        }
+    }
+
+    public void RemoveItem(int index)
+    {
+        Image buttonImage = inventorySlots[index].GetComponent<Image>();
+
+        if (GameVariables.prefabs.ContainsKey(buttonImage.sprite.name))
+        {
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].name == buttonImage.sprite.name)
+                {
+                    inventory.RemoveItem(buttonImage.name);
+                    break;
+                }
+            }
+            buttonImage.sprite = GameVariables.prefabs["Yeet"].GetComponent<SpriteRenderer>().sprite;
         }
     }
 }

@@ -6,26 +6,52 @@ using UnityEngine;
 public class InventoryItems : MonoBehaviour
 {
     // Makes an inventory for the player.
-    public List<GameObject> Inventory;
+    [SerializeField]
+    private List<GameObject> inventory;
+    [SerializeField]
+    private List<int> itemStack;
+    [SerializeField]
+    private InventoryBehavior inventoryUI;
 
     private void Start()
     {
-        Inventory = new List<GameObject>();
+        inventory = new List<GameObject>();
+        itemStack = new List<int>();
+        inventoryUI.playerInventory = this;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Item")
         {
-            Inventory.Add(GameVariables.prefabs[other.gameObject.name]);
-            Destroy(other.gameObject);
+            bool itemInInventory = false;
+            int iteration = 0;
+            foreach (GameObject inventoryItem in inventory)
+            {
+                if (inventoryItem.name == other.gameObject.name)
+                {
+                    itemStack[iteration]++;
+                    Destroy(other.gameObject);
+                    itemInInventory = true;
+                    break;
+                }
+                iteration++;
+            }
+            if(!itemInInventory)
+            {
+                inventory.Add(GameVariables.prefabs[other.gameObject.name]);
+                itemStack.Add(1);
+                Destroy(other.gameObject);
+            }
+            inventoryUI.needToUpdateInventoryUI = true;
         }
     }
 
-    public int Count {
+    public int Count 
+    {
         get
         {
-            return Inventory.Count;
+            return inventory.Count;
         }
     }
 
@@ -33,27 +59,21 @@ public class InventoryItems : MonoBehaviour
     {
         get
         {
-            return Inventory[index];
+            return inventory[index];
         }
         set
         {
-            Inventory[index] = value;
+            inventory[index] = value;
         }
     }
 
-    public void RemoveItem(string itemName)
+    public List<GameObject> GetInventoryItems()
     {
-        List<GameObject> newInventory = new List<GameObject>();
+        return inventory;
+    }
 
-        foreach(GameObject item in Inventory)
-        {
-            if(item.name == itemName)
-            {
-                continue;
-            }
-            newInventory.Add(item);
-        }
-
-        Inventory = newInventory;
+    public List<int> GetItemStacks()
+    {
+        return itemStack;
     }
 }

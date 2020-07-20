@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class InventoryBehavior : MonoBehaviour
 {
     private GameObject inventoryArea;
-    private InventoryItems inventory;
-    public List<GameObject> inventorySlots;
+    private List<GameObject> inventorySlots;
+    public InventoryItems playerInventory;
+    public bool needToUpdateInventoryUI;
 
     // Start is called before the first frame update
     void Start()
     {
         inventoryArea = GameObject.Find("Canvas");
         inventorySlots = new List<GameObject>();
-        inventory = GameObject.Find("Player").GetComponent<InventoryItems>();
 
         foreach(Transform child in inventoryArea.transform)
         {
@@ -24,29 +24,36 @@ public class InventoryBehavior : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < inventory.Count; i++)
+        if(needToUpdateInventoryUI)
         {
-            Image buttonImage = inventorySlots[i].GetComponent<Image>();
-            Sprite buttonSprite = inventory[i].GetComponent<SpriteRenderer>().sprite;
-            buttonImage.sprite = buttonSprite;
+            UpdateUI();
         }
     }
 
-    public void RemoveItem(int index)
+    private void UpdateUI()
     {
-        Image buttonImage = inventorySlots[index].GetComponent<Image>();
-
-        if (GameVariables.prefabs.ContainsKey(buttonImage.sprite.name))
+        List<GameObject> playerInventoryItems = playerInventory.GetInventoryItems();
+        List<int> playerItemStack = playerInventory.GetItemStacks();
+        for(int i = 0; i < playerInventoryItems.Count; i++)
         {
-            for (int i = 0; i < inventory.Count; i++)
-            {
-                if (inventory[i].name == buttonImage.sprite.name)
-                {
-                    inventory.RemoveItem(buttonImage.name);
-                    break;
-                }
-            }
-            buttonImage.sprite = GameVariables.prefabs["Yeet"].GetComponent<SpriteRenderer>().sprite;
+            UpdateSlotImage(inventorySlots[i], playerInventoryItems[i]);
+            UpdateSlotNumber(inventorySlots[i], playerItemStack[i]);
+        }
+        needToUpdateInventoryUI = false;
+    }
+
+    private void UpdateSlotImage(GameObject slot, GameObject inventoryItem)
+    {
+        Sprite inventoryItemSprite = inventoryItem.GetComponent<SpriteRenderer>().sprite;
+        slot.GetComponent<Image>().sprite = inventoryItemSprite;
+    }
+
+    private void UpdateSlotNumber(GameObject slot, int itemStack)
+    {
+        foreach(Transform child in slot.transform)
+        {
+            child.gameObject.GetComponent<Text>().text = itemStack.ToString();
+            return;
         }
     }
 }

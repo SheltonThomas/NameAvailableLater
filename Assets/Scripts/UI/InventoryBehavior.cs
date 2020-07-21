@@ -77,6 +77,14 @@ public class InventoryBehavior : MonoBehaviour
 
     public void RemoveItem(int index)
     {
+        // Removes the item at the index from the players inventory.
+        if(playerInventory.GetItemStacks()[index] - 1 < 0)
+        {
+            playerInventory.GetInventoryItems().Remove(playerInventory.GetInventoryItems()[index]);
+        }
+        // Decreases the stack amount for the item.
+        playerInventory.GetItemStacks()[index]--;
+        // Mark that the inventory UI to be updated.
         needToUpdateInventoryUI = true;
     }
 }

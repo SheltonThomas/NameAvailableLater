@@ -9,26 +9,32 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float movementSpeed = 5f;
-    public float dashSpeed = 3f;
-    float dashTime = 1.0f;
-    float timer = 0.0f;
-    float dashCooldown = 3.0f;
+    public float dashSpeed = 20f;
+    public float dashTime = 0.2f;
+    public float dashCooldown = 1.0f;
+    
+    float timer = 2.0f; // incremented to know when the dash is not on cooldown and when the dash should end
 
     public Rigidbody2D rigidBody; //Player character's rigid body used to control where the character is
     public Animator animator;
     public Camera cam;
 
     bool dashPressed;
+    bool dashVelocityReset = false;//used to know if the dash's velocity has been reset since the 
+                                   //dash adds velocity to the character and it needs to be set back to 0
+    
+    public bool dashUnlocked = true;
 
     Vector2 movement;
     Vector2 mousePosition;
     Vector2 playerDirection;
     Vector2 dashDirection;
+
+    // old implementation
     //Vector2 dash;
     //Vector2 move;
-
     //float playerAngle;
-    //int c=0;
+
 
 
     // Update is called once per frame
@@ -42,28 +48,33 @@ public class PlayerMovement : MonoBehaviour
 
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition); //Gets mouse position and transfers it from pixel coordinates to world units
 
-        dashPressed = Input.GetButtonDown("Dash");
         
-        timer += Time.deltaTime;
-
-        if (dashPressed && timer > dashCooldown)
+        if (dashUnlocked) //Checking if the dash has been unlocked
         {
-            timer = 0;
-            playerDirection.Normalize();
-            dashDirection = playerDirection;
+        dashPressed = Input.GetButtonDown("Dash"); //Getting whether or not the dash button has been pressed on this frame
+        
+        timer += Time.deltaTime; 
+
+            if (dashPressed && timer > dashCooldown) //Checking if the dash is not on cooldown and if the button has been pressed
+                {
+                    dashVelocityReset = false; //Turning this to false so that it has to be turned back to true after the dash ends
+                    timer = 0; //Reseting the cooldown and dash timer (same timer used for both)
+                    playerDirection.Normalize(); 
+                    dashDirection = playerDirection; //Setting a variable for the direction of the dash that cannot not be changed until the next dash
+                    rigidBody.velocity = dashSpeed * dashDirection;
+                }
+        
+            if (timer > dashTime && !dashVelocityReset)
+                {
+                    rigidBody.velocity = Vector2.zero;
+                    dashVelocityReset = true;
+                }
         }
         
 
-        if(timer < dashTime)
-        {
-            rigidBody.MovePosition(rigidBody.position + dashSpeed * dashDirection * Time.deltaTime);
-        }
-
-        /*
+        /* // old implementation
         if (Input.GetButtonDown("Dash"))
         {
-            print(c);
-            c++;
             print("player direction " + playerDirection);
             print("PLayer position " + rigidBody.position);
 
@@ -107,12 +118,12 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.rotation = playerAngle;
 
         
-        if (movement.magnitude != 0 && !dashPressed)
+        if (movement.magnitude != 0 && timer > dashTime) //If the player is not dashing and pushed a direction, move the player in that direction
         {
             rigidBody.MovePosition(rigidBody.position + movement * movementSpeed * Time.deltaTime);
         }
 
-        /*
+        /*// old implementation
         if (Input.GetButtonDown("Dash"))
         {
             print(c);

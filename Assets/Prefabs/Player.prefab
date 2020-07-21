@@ -120,9 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  rigidbody: {fileID: 3113345081774817759}
+  dashSpeed: 20
+  dashTime: 0.2
+  dashCooldown: 1
+  rigidBody: {fileID: 3113345081774817759}
   animator: {fileID: 3113345081774817754}
   cam: {fileID: 0}
+  dashUnlocked: 1
 --- !u!95 &3113345081774817754
 Animator:
   serializedVersion: 3

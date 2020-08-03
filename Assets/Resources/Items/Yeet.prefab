@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3113345081774817752}
   - component: {fileID: 3113345081774817759}
   - component: {fileID: 3113345081774817755}
-  - component: {fileID: 309139891327363279}
+  - component: {fileID: 602570106191731395}
   m_Layer: 0
   m_Name: Yeet
   m_TagString: Item
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3113345081774817757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.109, y: -0.953, z: 0}
+  m_LocalPosition: {x: 24.992378, y: -8.384147, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &309139891327363279
+--- !u!114 &602570106191731395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3113345081774817757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aed3edacb782aa47adb2b9ce5a0807e, type: 3}
+  m_Script: {fileID: 11500000, guid: 35c07033259f4094292245c695106d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsInStack: 0

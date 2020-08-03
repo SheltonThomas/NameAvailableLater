@@ -11,26 +11,31 @@ public class InventoryItems : MonoBehaviour
 
     // Keeps track of the items stacked in the inventory;
     [SerializeField]
-    private List<int> itemStack;
+    private List<int?> itemStack;
 
     // Gets the UI for the inventory.
-    [SerializeField]
     private InventoryBehavior inventoryUI;
 
     private void Start()
     {
+        inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryBehavior>();
         // Initializes the player inventory.
         inventory = new List<GameObject>();
         // Initializes the item stacks.
-        itemStack = new List<int>();
+        itemStack = new List<int?>();
         // Sets the UI's instance of the player's inventory to the current script.
         inventoryUI.playerInventory = this;
+        for(int i = 0; i < 6; i++)
+        {
+            inventory.Add(null);
+            itemStack.Add(null);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // If collided with something with the tag named Item
-        if (other.gameObject.tag == "Item")
+        // If collided with something with the Item component
+        if (other.gameObject.TryGetComponent(out Item item))
         {
             // Use to check to see if the player already has the item in their inventory.
             CheckStacks(other, out bool itemInInventory);
@@ -56,6 +61,12 @@ public class InventoryItems : MonoBehaviour
         // Loops to see if the item is in the player's inventory.
         foreach (GameObject inventoryItem in inventory)
         {
+            if(inventoryItem == null)
+            {
+                itemInInventory = false;
+                return;
+            }
+
             // If the name of the object hit is the same as the name of the object the current looped item.
             if (inventoryItem.name == other.gameObject.name)
             {
@@ -69,7 +80,7 @@ public class InventoryItems : MonoBehaviour
             iteration++;
         }
 
-        //Shoudln't need to be like this but have to do this because I'm trying to send out the value.
+        // Shoudln't need to be like this but have to do this because I'm trying to send out the value.
         itemInInventory = false;
 
         if(setItemInInventory)
@@ -80,10 +91,13 @@ public class InventoryItems : MonoBehaviour
 
     private void AddItemToInventory(Collider2D other)
     {
+        int? emptyIndex = CheckInventoryForEmptySlots();
+        if (emptyIndex == null)
+            return;
         // Adds the item to the player's inventory.
-        inventory.Add(GameVariables.prefabs[other.gameObject.name]);
+        inventory[(int)emptyIndex] = (GameVariables.prefabs[other.gameObject.name]);
         // Sets that items stack to 1.
-        itemStack.Add(1);
+        itemStack[(int)emptyIndex] = 1;
     }
 
     public int Count 
@@ -116,8 +130,22 @@ public class InventoryItems : MonoBehaviour
     }
 
     // Returns the item stacks when in other scripts.
-    public List<int> GetItemStacks()
+    public List<int?> GetItemStacks()
     {
         return itemStack;
+    }
+
+    private int? CheckInventoryForEmptySlots()
+    {
+        int iterator = 0;
+        foreach(GameObject inventorySlot in inventory)
+        {
+            if(inventorySlot == null)
+            {
+                return iterator;
+            }
+            iterator++;
+        }
+        return null;
     }
 }

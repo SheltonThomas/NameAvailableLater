@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3500217784686170720}
   - component: {fileID: 2767297519082120626}
   - component: {fileID: 875522375123868670}
+  - component: {fileID: 4618805479564739707}
   m_Layer: 0
-  m_Name: Sword
+  m_Name: Gay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.42, y: 6.54}
   m_EdgeRadius: 0
+--- !u!114 &4618805479564739707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772233670182352850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa89c67152b93a428880e8dc4343e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

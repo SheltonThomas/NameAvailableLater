@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8864517574146264901}
   - component: {fileID: 2371665986870914667}
   - component: {fileID: 1349297249051068295}
+  - component: {fileID: 8485776968763864466}
   m_Layer: 5
   m_Name: Slot0
   m_TagString: Untagged
@@ -132,15 +133,29 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 0
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8485776968763864466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939028312132039618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &1730071911440236599
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +246,7 @@ GameObject:
   - component: {fileID: 8709562598249579472}
   - component: {fileID: 6135932637595163288}
   - component: {fileID: 7020967778198719552}
+  - component: {fileID: 7824928740351165781}
   m_Layer: 5
   m_Name: Slot4
   m_TagString: Untagged
@@ -351,15 +367,29 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 4
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7824928740351165781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905692881438316349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &1980155116858378738
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +402,7 @@ GameObject:
   - component: {fileID: 6600322356648232750}
   - component: {fileID: 5093732648049068030}
   - component: {fileID: 1746569883698531088}
+  - component: {fileID: 4403337149868369626}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
@@ -492,15 +523,29 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 3
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4403337149868369626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980155116858378738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &2694792855572114196
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +792,7 @@ GameObject:
   - component: {fileID: 1004455992347028337}
   - component: {fileID: 3602690479767451261}
   - component: {fileID: 4871320221546810383}
+  - component: {fileID: 96660324797511690}
   m_Layer: 0
   m_Name: Weapon Slot
   m_TagString: Untagged
@@ -864,6 +910,31 @@ MonoBehaviour:
           m_StringArgument: Weapon
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8382192711042871823}
+        m_MethodName: AttachItemToMouse
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Weapon
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &96660324797511690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995397170768435015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &5481928030179326981
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +947,7 @@ GameObject:
   - component: {fileID: 3107111039911461941}
   - component: {fileID: 7533239402659879618}
   - component: {fileID: 3831547474106937628}
+  - component: {fileID: 897469703966005513}
   m_Layer: 0
   m_Name: Armor Slot
   m_TagString: Untagged
@@ -993,6 +1065,31 @@ MonoBehaviour:
           m_StringArgument: Armor
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8382192711042871823}
+        m_MethodName: AttachItemToMouse
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Armor
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &897469703966005513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5481928030179326981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &5494428801949330308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1102,7 @@ GameObject:
   - component: {fileID: 7024921903842221984}
   - component: {fileID: 153264210659048870}
   - component: {fileID: 6640092886304325687}
+  - component: {fileID: 7257064226306253845}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
@@ -1125,15 +1223,29 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7257064226306253845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5494428801949330308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &5810870995711285170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,6 +1362,7 @@ GameObject:
   - component: {fileID: 5438535801371277000}
   - component: {fileID: 5333151337878374738}
   - component: {fileID: 3757878057048020628}
+  - component: {fileID: 2606869770464375481}
   m_Layer: 5
   m_Name: Slot5
   m_TagString: Untagged
@@ -1358,27 +1471,41 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8382192711042871823}
-        m_MethodName: RemoveItem
-        m_Mode: 3
+        m_MethodName: MoveItemToSlot
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 5
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 5
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2606869770464375481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726767488084902410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &8018552188263409358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1733,7 @@ GameObject:
   - component: {fileID: 4747499768244625632}
   - component: {fileID: 5486063767003141678}
   - component: {fileID: 3091006146498035562}
+  - component: {fileID: 1928447685763340655}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -1726,15 +1854,29 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8382192711042871823}
         m_MethodName: AttachItemToMouse
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 2
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1928447685763340655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471190960859829189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d236316ac71a8e47bc8789ae57b6e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 0}
+  tempItemInSlot: {fileID: 0}
 --- !u!1 &8636603529707598228
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class InventoryBehavior : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class InventoryBehavior : MonoBehaviour
     [SerializeField]
     private Sprite defaultSprite;
     private GameObject weaponSlot, armorSlot;
+    private bool justMovedItem = false;
 
 
     void Start()
@@ -49,6 +51,11 @@ public class InventoryBehavior : MonoBehaviour
             }
             iterator++;
         }
+
+        weaponSlot.GetComponent<Image>().sprite = defaultSprite;
+        armorSlot.GetComponent<Image>().sprite = defaultSprite;
+
+        needToUpdateInventoryUI = true;
     }
 
     private void Update()
@@ -72,24 +79,35 @@ public class InventoryBehavior : MonoBehaviour
             // Updates everything in the UI.
             for (int i = 0; i < playerInventoryItems.Count; i++)
             {
-                if (inventorySlots[i] == null)
-                    break;
+                if (playerInventoryItems[i] == null)
+                {
+                    UpdateSlotImage(inventorySlots[i],
+                        defaultSprite);
+                    UpdateSlotNumber(inventorySlots[i], 0);
+                    continue;
+                }
                 // Updates the image of the slots of the UI.
                 UpdateSlotImage(inventorySlots[i], playerInventoryItems[i].GetComponent<SpriteRenderer>().sprite);
                 // Updates the stack number for the UI.
                 UpdateSlotNumber(inventorySlots[i], (int)playerItemStack[i]);
             }
         }
+
+        if(playerInventory.EquippedWeapon == null)
+        {
+            weaponSlot.GetComponent<Image>().sprite = defaultSprite;
+        }
+        if(playerInventory.EquippedArmor == null)
+        {
+            armorSlot.GetComponent<Image>().sprite = defaultSprite;
+        }
+
         // Sets that the UI doesn't need to update anymore.
         needToUpdateInventoryUI = false;
     }
 
     private void UpdateSlotImage(GameObject slot, Sprite inventoryItemSprite)
     {
-        if(inventoryItemSprite == null)
-        {
-            slot.GetComponent<Image>().sprite = defaultSprite;
-        }
         // Sets the sprite of the slot to the sprite of the item in the player's inventory.
         slot.GetComponent<Image>().sprite = inventoryItemSprite;
     }
@@ -119,19 +137,52 @@ public class InventoryBehavior : MonoBehaviour
         playerInventory.GetItemStacks()[index]--;
     }
 
-    public void AttachItemToMouse(int index)
+    public void AttachItemToMouse(string slot)
     {
-        if (itemOnMouse != null)
+        if (itemOnMouse != null || 
+            justMovedItem)
+        {
+            justMovedItem = false;
             return;
+        }
+        Texture2D textureOfItemOnMouse;
 
-        GameObject itemToMove = playerInventory.GetInventoryItems()[index];
-        itemOnMouse = GameVariables.prefabs[itemToMove.name];
-        Texture2D textureOfItemOnMouse =
-            GameVariables.prefabs[itemToMove.name].GetComponent<SpriteRenderer>().sprite.texture;
-        Cursor.SetCursor(textureOfItemOnMouse, Vector2.zero, CursorMode.Auto);
-        playerInventory.GetInventoryItems().Remove(playerInventory.GetInventoryItems()[index]);
-        stackOnMouse = (int)playerInventory.GetItemStacks()[index];
-        playerInventory.GetItemStacks()[index] = 0;
+        if(Int32.TryParse(slot, out int index))
+        {
+            itemOnMouse = playerInventory.GetInventoryItems()[index];
+
+            textureOfItemOnMouse =
+            GameVariables.prefabs[itemOnMouse.name].GetComponent<SpriteRenderer>().sprite.texture;
+
+            Cursor.SetCursor(textureOfItemOnMouse, Vector2.zero, CursorMode.Auto);
+            playerInventory.GetInventoryItems()[index] = null;
+            stackOnMouse = (int)playerInventory.GetItemStacks()[index];
+            playerInventory.GetItemStacks()[index] = 0;
+            needToUpdateInventoryUI = true;
+            return;
+        }
+
+        if (slot == "Weapon")
+        {
+            itemOnMouse = playerInventory.EquippedWeapon;
+
+            textureOfItemOnMouse =
+            GameVariables.prefabs[itemOnMouse.name].GetComponent<SpriteRenderer>().sprite.texture;
+
+            Cursor.SetCursor(textureOfItemOnMouse, Vector2.zero, CursorMode.Auto);
+            playerInventory.EquippedWeapon = null;
+        }
+
+        if (slot == "Armor")
+        {
+            itemOnMouse = playerInventory.EquippedArmor;
+
+            textureOfItemOnMouse =
+            GameVariables.prefabs[itemOnMouse.name].GetComponent<SpriteRenderer>().sprite.texture;
+
+            Cursor.SetCursor(textureOfItemOnMouse, Vector2.zero, CursorMode.Auto);
+            playerInventory.EquippedArmor = null;
+        }
         needToUpdateInventoryUI = true;
     }
 
@@ -144,8 +195,15 @@ public class InventoryBehavior : MonoBehaviour
         {
             playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
             playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            inventorySlots[slotIndex].GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+            itemOnMouse = null;
+            justMovedItem = true;
+            needToUpdateInventoryUI = true;
             return;
         }
+
+        bool itemPlacedInSlot = false;
 
         itemOnMouse.TryGetComponent(out Item itemGrabbed);
         if (itemGrabbed is Weapon && slot == "Weapon")
@@ -153,12 +211,25 @@ public class InventoryBehavior : MonoBehaviour
             weaponSlot.GetComponent<Image>().sprite =
                 itemOnMouse.GetComponent<SpriteRenderer>().sprite;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            weaponSlot.GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+            playerInventory.EquippedWeapon = itemOnMouse;
+            itemPlacedInSlot = true;
         }
         if (itemGrabbed is Armor && slot == "Armor")
         {
             armorSlot.GetComponent<Image>().sprite =
                 itemOnMouse.GetComponent<SpriteRenderer>().sprite;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            armorSlot.GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+            playerInventory.EquippedArmor = itemOnMouse;
+            itemPlacedInSlot = true;
         }
+        if(itemPlacedInSlot)
+        {
+            itemOnMouse = null;
+            justMovedItem = true;
+            itemPlacedInSlot = false;
+        }
+        needToUpdateInventoryUI = true;
     }
 }

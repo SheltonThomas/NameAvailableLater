@@ -16,6 +16,9 @@ public class InventoryItems : MonoBehaviour
     // Gets the UI for the inventory.
     private InventoryBehavior inventoryUI;
 
+    public GameObject EquippedWeapon { get; set; }
+    public GameObject EquippedArmor { get; set; }
+
     private void Start()
     {
         inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryBehavior>();
@@ -91,13 +94,19 @@ public class InventoryItems : MonoBehaviour
 
     private void AddItemToInventory(Collider2D other)
     {
-        int? emptyIndex = CheckInventoryForEmptySlots();
-        if (emptyIndex == null)
+        int? slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.gameObject.name]);
+        if (slotToPlaceItem == null)
             return;
+
+        if (inventory[(int)slotToPlaceItem] != null)
+        {
+            itemStack[(int)slotToPlaceItem]++;
+            return;
+        }
         // Adds the item to the player's inventory.
-        inventory[(int)emptyIndex] = (GameVariables.prefabs[other.gameObject.name]);
+        inventory[(int)slotToPlaceItem] = (GameVariables.prefabs[other.gameObject.name]);
         // Sets that items stack to 1.
-        itemStack[(int)emptyIndex] = 1;
+        itemStack[(int)slotToPlaceItem] = 1;
     }
 
     public int Count 
@@ -135,9 +144,14 @@ public class InventoryItems : MonoBehaviour
         return itemStack;
     }
 
-    private int? CheckInventoryForEmptySlots()
+    private int? CheckInventory(GameObject objectToLookFor)
     {
-        int iterator = 0;
+        CheckForItemInInventory(objectToLookFor, out int? iterator);
+        if(iterator != null)
+        {
+            return iterator;
+        }
+        iterator = 0;
         foreach(GameObject inventorySlot in inventory)
         {
             if(inventorySlot == null)
@@ -147,5 +161,28 @@ public class InventoryItems : MonoBehaviour
             iterator++;
         }
         return null;
+    }
+
+    private void CheckForItemInInventory(GameObject objectToLookFor, out int? objectIndex)
+    {
+        bool objectFound = false;
+        int? iterator = 0;
+        foreach(GameObject inventorySlot in inventory)
+        {
+            if(inventorySlot == null)
+            {
+                iterator++;
+                continue;
+            }
+            if(inventorySlot == objectToLookFor)
+            {
+                objectFound = true;
+                break;
+            }
+        }
+        if(!objectFound)
+            iterator = null;
+
+        objectIndex = iterator;
     }
 }

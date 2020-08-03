@@ -6,4 +6,6 @@ public class ItemInSlot : MonoBehaviour
 {
     public GameObject itemInSlot;
     public GameObject tempItemInSlot;
+    public int stackAmount = new int();
+    public int tempStackAmount = new int();
 }

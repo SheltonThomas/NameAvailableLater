@@ -84,12 +84,15 @@ public class InventoryBehavior : MonoBehaviour
                     UpdateSlotImage(inventorySlots[i],
                         defaultSprite);
                     UpdateSlotNumber(inventorySlots[i], 0);
+                    inventorySlots[i].GetComponent<ItemInSlot>().itemInSlot = null;
                     continue;
                 }
                 // Updates the image of the slots of the UI.
                 UpdateSlotImage(inventorySlots[i], playerInventoryItems[i].GetComponent<SpriteRenderer>().sprite);
+                inventorySlots[i].GetComponent<ItemInSlot>().itemInSlot = playerInventory[i];
                 // Updates the stack number for the UI.
                 UpdateSlotNumber(inventorySlots[i], (int)playerItemStack[i]);
+                inventorySlots[i].GetComponent<ItemInSlot>().stackAmount = (int)playerItemStack[i];
             }
         }
 
@@ -193,13 +196,46 @@ public class InventoryBehavior : MonoBehaviour
 
         if(Int32.TryParse(slot, out int slotIndex))
         {
-            playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
-            playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-            inventorySlots[slotIndex].GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
-            itemOnMouse = null;
-            justMovedItem = true;
-            needToUpdateInventoryUI = true;
+            if (playerInventory.GetInventoryItems()[slotIndex] == null)
+            {
+                playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
+                playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
+
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().stackAmount = stackOnMouse;
+
+                itemOnMouse = null;
+                stackOnMouse = 0;
+
+                justMovedItem = true;
+                needToUpdateInventoryUI = true;
+            }
+            else
+            {
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().tempItemInSlot =
+                    inventorySlots[slotIndex].GetComponent<ItemInSlot>().itemInSlot;
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().tempStackAmount =
+                    inventorySlots[slotIndex].GetComponent<ItemInSlot>().stackAmount;
+
+                playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
+                playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
+
+                Texture2D mouseSprite;
+                GameObject itemToPutOnMouse = inventorySlots[slotIndex].GetComponent<ItemInSlot>().tempItemInSlot;
+                mouseSprite = itemToPutOnMouse.GetComponent<SpriteRenderer>().sprite.texture;
+                Cursor.SetCursor(mouseSprite, Vector2.zero, CursorMode.Auto);
+
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+                inventorySlots[slotIndex].GetComponent<ItemInSlot>().stackAmount = stackOnMouse;
+
+                itemOnMouse = inventorySlots[slotIndex].GetComponent<ItemInSlot>().tempItemInSlot;
+                stackOnMouse = inventorySlots[slotIndex].GetComponent<ItemInSlot>().tempStackAmount;
+
+                justMovedItem = true;
+                needToUpdateInventoryUI = true;
+            }
             return;
         }
 
@@ -212,6 +248,7 @@ public class InventoryBehavior : MonoBehaviour
                 itemOnMouse.GetComponent<SpriteRenderer>().sprite;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             weaponSlot.GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+            weaponSlot.GetComponent<ItemInSlot>().stackAmount = stackOnMouse;
             playerInventory.EquippedWeapon = itemOnMouse;
             itemPlacedInSlot = true;
         }
@@ -221,6 +258,7 @@ public class InventoryBehavior : MonoBehaviour
                 itemOnMouse.GetComponent<SpriteRenderer>().sprite;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             armorSlot.GetComponent<ItemInSlot>().itemInSlot = itemOnMouse;
+            armorSlot.GetComponent<ItemInSlot>().stackAmount = stackOnMouse;
             playerInventory.EquippedArmor = itemOnMouse;
             itemPlacedInSlot = true;
         }

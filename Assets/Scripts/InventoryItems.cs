@@ -16,11 +16,13 @@ public class InventoryItems : MonoBehaviour
     // Gets the UI for the inventory.
     private InventoryBehavior inventoryUI;
 
+    // Equipped weapon and armor.
     public GameObject EquippedWeapon { get; set; }
     public GameObject EquippedArmor { get; set; }
 
     private void Start()
     {
+        // Gets the inventory UI.
         inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryBehavior>();
         // Initializes the player inventory.
         inventory = new List<GameObject>();
@@ -28,7 +30,8 @@ public class InventoryItems : MonoBehaviour
         itemStack = new List<int?>();
         // Sets the UI's instance of the player's inventory to the current script.
         inventoryUI.playerInventory = this;
-        for(int i = 0; i < 6; i++)
+        // Sets the slots of the inventory to null.
+        for(int i = 0; i < inventoryUI.amountOfSlots; i++)
         {
             inventory.Add(null);
             itemStack.Add(null);
@@ -40,14 +43,8 @@ public class InventoryItems : MonoBehaviour
         // If collided with something with the Item component
         if (other.gameObject.TryGetComponent(out Item item))
         {
-            // Use to check to see if the player already has the item in their inventory.
-            CheckStacks(other, out bool itemInInventory);
-
-            // If the item isn't already in the player's inventory, then add it to the player's inventory.
-            if (!itemInInventory)
-            {
-                AddItemToInventory(other);
-            }
+            // Adds the item to the player's inventory.
+            AddItemToInventory(other);
 
             // Destroys the object that was hit.
             Destroy(other.gameObject);
@@ -56,48 +53,15 @@ public class InventoryItems : MonoBehaviour
         }
     }
 
-    private void CheckStacks(Collider2D other, out bool itemInInventory)
-    {
-        // Keeps track of how many times the foreach has looped to get the position of the item in the list.
-        int iteration = 0;
-        bool setItemInInventory = false;
-        // Loops to see if the item is in the player's inventory.
-        foreach (GameObject inventoryItem in inventory)
-        {
-            if(inventoryItem == null)
-            {
-                itemInInventory = false;
-                return;
-            }
-
-            // If the name of the object hit is the same as the name of the object the current looped item.
-            if (inventoryItem.name == other.gameObject.name)
-            {
-                // Increases the stack at the current index.
-                itemStack[iteration]++;
-                // Sets that the item was in the player's inventory.
-                setItemInInventory = true;
-                // Breaks out of the loop.
-                break;
-            }
-            iteration++;
-        }
-
-        // Shoudln't need to be like this but have to do this because I'm trying to send out the value.
-        itemInInventory = false;
-
-        if(setItemInInventory)
-        {
-            itemInInventory = true;
-        }
-    }
-
     private void AddItemToInventory(Collider2D other)
     {
+        // Checks to see if the item is in the inventory.
         int? slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.gameObject.name]);
+        // If the item isn't in the inventory, return.
         if (slotToPlaceItem == null)
             return;
 
+        // If the slot isn't empty, increase that slots stack count.
         if (inventory[(int)slotToPlaceItem] != null)
         {
             itemStack[(int)slotToPlaceItem]++;
@@ -144,45 +108,65 @@ public class InventoryItems : MonoBehaviour
         return itemStack;
     }
 
+    // Checks to see where the item needs to be placed in the inventory.
     private int? CheckInventory(GameObject objectToLookFor)
     {
+        // Checks to see if the item is in the inventory.
         CheckForItemInInventory(objectToLookFor, out int? iterator);
+
+        // If the returned iterator isn't null, return the index.
         if(iterator != null)
         {
             return iterator;
         }
+
+        // Sets iterator to 0 for later use.
         iterator = 0;
         foreach(GameObject inventorySlot in inventory)
         {
+            // If the slot is null, return the index.
             if(inventorySlot == null)
             {
                 return iterator;
             }
+            // Else increment the iterator.
             iterator++;
         }
+        // If the foreach ends, then return that it can't place the item in the inventory.
         return null;
     }
 
+    // Checks to see if the item is in the inventory.
     private void CheckForItemInInventory(GameObject objectToLookFor, out int? objectIndex)
     {
+        // Used to say if the object is found or not.
         bool objectFound = false;
+        // Used to get the index of the item.
         int? iterator = 0;
         foreach(GameObject inventorySlot in inventory)
         {
+            // If the slot doesn't have anything in it.
             if(inventorySlot == null)
             {
+                // Increment the iterator.
                 iterator++;
                 continue;
             }
+            // If the item in the slot is the item we are looking for.
             if(inventorySlot == objectToLookFor)
             {
+                // Set that the item was found.
                 objectFound = true;
                 break;
             }
         }
+
+        // If the item wasn't found.
         if(!objectFound)
+            // Set the iterator to null.
             iterator = null;
 
+        // Set the object index to the iterator.
         objectIndex = iterator;
     }
 }

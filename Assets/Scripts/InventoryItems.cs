@@ -159,6 +159,10 @@ public class InventoryItems : MonoBehaviour
                 objectFound = true;
                 break;
             }
+            else
+            {
+                iterator++;
+            }
         }
 
         // If the item wasn't found.

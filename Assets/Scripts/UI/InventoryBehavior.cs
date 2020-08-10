@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class InventoryBehavior : MonoBehaviour
 {
-    // Gets the canvas for the inventory UI.
-    private GameObject inventoryArea;
+    // Gets the slots of the inventory.
+    [SerializeField]
+    private GameObject slotsArea;
+    [SerializeField]
+    private GameObject equipSlots;
     // Used for the different slots of the inventory.
     private List<GameObject> inventorySlots;
     // An instance of the player's inventory.
@@ -32,13 +35,9 @@ public class InventoryBehavior : MonoBehaviour
 
     void Start()
     {
-        // Gets the inventory's canvas.
-        inventoryArea = GameObject.Find("Slots");
-        // Initializes inventory slots.
-        inventorySlots = new List<GameObject>();
-
         // Sets the inventory slots to the slots on the canvas.
-        foreach(Transform child in inventoryArea.transform)
+        inventorySlots = new List<GameObject>();
+        foreach (Transform child in slotsArea.transform)
         {
             amountOfSlots++;
             inventorySlots.Add(child.gameObject);
@@ -46,7 +45,7 @@ public class InventoryBehavior : MonoBehaviour
 
         // Gets the weapon and the armor slot for later use.
         int iterator = 0;
-        foreach(Transform child in GameObject.Find("Equipped").transform)
+        foreach(Transform child in equipSlots.transform)
         {
             if(iterator == 0)
             {

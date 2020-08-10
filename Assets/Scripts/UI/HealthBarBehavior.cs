@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class HealthBarBehavior : MonoBehaviour
 {
+    [SerializeField]
     private Slider healthUI;
     private PlayerStats player;
+    [SerializeField]
+    private Button inventoryButton;
+    [SerializeField]
+    private GameObject playerInventory;
+
     // Start is called before the first frame update
     void Start()
     {
-        healthUI = this.gameObject.GetComponent<Slider>();
         player = GameObject.Find("Player").GetComponent<PlayerStats>();
         healthUI.maxValue = player.GetPlayerHealth();
         healthUI.value = player.GetPlayerHealth();
@@ -20,5 +25,10 @@ public class HealthBarBehavior : MonoBehaviour
     void Update()
     {
         healthUI.value = player.GetPlayerHealth();
+    }
+
+    public void TogglePlayerInventory()
+    {
+        playerInventory.SetActive(!playerInventory.activeInHierarchy);
     }
 }

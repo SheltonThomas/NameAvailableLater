@@ -22,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     bool dashPressed;
     bool dashVelocityReset = false;//used to know if the dash's velocity has been reset since the 
                                    //dash adds velocity to the character and it needs to be set back to 0
-    
+
+    public float playerAngle;
+
     public bool dashUnlocked = true;
 
     Vector2 movement;
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     // old implementation
     //Vector2 dash;
     //Vector2 move;
-    //float playerAngle;
+    
 
 
 
@@ -45,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         movement.Normalize();
 
         animator.SetFloat("Speed", movement.sqrMagnitude);
+        animator.SetFloat("Rotation", playerAngle);
 
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition); //Gets mouse position and transfers it from pixel coordinates to world units
 
@@ -55,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         
         timer += Time.deltaTime; 
 
-            if (dashPressed && timer > dashCooldown) //Checking if the dash is not on cooldown and if the button has been pressed
+            if (dashPressed && timer > dashCooldown) //Checking if the dash is not on cooldown and if the button has been pressed then initiatializes the dash
                 {
                     dashVelocityReset = false; //Turning this to false so that it has to be turned back to true after the dash ends
                     timer = 0; //Reseting the cooldown and dash timer (same timer used for both)
@@ -64,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
                     rigidBody.velocity = dashSpeed * dashDirection;
                 }
         
-            if (timer > dashTime && !dashVelocityReset)
+            if (timer > dashTime && !dashVelocityReset) //When the dash is over
                 {
                     rigidBody.velocity = Vector2.zero;
                     dashVelocityReset = true;
@@ -114,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
     {
         
         playerDirection = mousePosition - rigidBody.position; //Finding the vector starting from the player to the mouse position
-        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg + 90f; //Getting the angle that the vector creates to rotate the character towards the mouse
-        rigidBody.rotation = playerAngle;
+        playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg + 180f; //Getting the angle that the vector creates to rotate the character towards the mouse
+        //rigidBody.rotation = playerAngle; //rotates player model to face the mouse
 
         
         if (movement.magnitude != 0 && timer > dashTime) //If the player is not dashing and pushed a direction, move the player in that direction

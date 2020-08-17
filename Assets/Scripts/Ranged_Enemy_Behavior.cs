@@ -17,6 +17,13 @@ public class Ranged_Enemy_Behavior : MonoBehaviour
 
     public Rigidbody2D playerRigidBody;
 
+    public int maxHealth = 100; //Health modifiers?
+    int currentHealth;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     // Update is called once per frame
     void Update()
@@ -58,5 +65,24 @@ public class Ranged_Enemy_Behavior : MonoBehaviour
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * arrowForce, ForceMode2D.Impulse);
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage; //armor?
+        //play hurt animation
+
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+
+    }
+
+    void Die()
+    {
+        Debug.Log("Enemy Died");
+        //Death animation
+        //Disable enemy
     }
 }

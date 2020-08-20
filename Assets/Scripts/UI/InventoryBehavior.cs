@@ -123,7 +123,7 @@ public class InventoryBehavior : MonoBehaviour
         // Sets the sprite of the slot to the sprite of the item in the player's inventory.
         slot.GetComponent<Image>().sprite = inventoryItemSprite;
     }
-
+    
     private void UpdateSlotNumber(GameObject slot, int itemStack)
     {
         foreach(Transform child in slot.transform)

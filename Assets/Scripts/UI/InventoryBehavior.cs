@@ -268,6 +268,17 @@ public class InventoryBehavior : MonoBehaviour
             }
             else
             {
+                if(itemOnMouse == playerInventory.GetInventoryItems()[slotIndex])
+                {
+                    playerInventory.GetItemStacks()[slotIndex]++;
+                    itemOnMouse = null;
+                    stackOnMouse = 0;
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    justMovedItem = true;
+                    needToUpdateInventoryUI = true;
+                    return;
+                }
+
                 // Get the item in the slot.
                 ItemInSlot itemsInSlot = inventorySlots[slotIndex].GetComponent<ItemInSlot>();
 

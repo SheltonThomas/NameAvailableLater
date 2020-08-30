@@ -172,7 +172,7 @@ public class InventoryBehavior : MonoBehaviour
         // If the slot is an integer.
         if(Int32.TryParse(slot, out int index))
         {
-            if(playerInventory.GetInventoryItems()[index] == null)
+            if(!playerInventory.GetInventoryItems()[index])
                 return;
 
             // Set the item of the mouse to the item in the player's inventory of that index and the stack of the item onto the mouse.

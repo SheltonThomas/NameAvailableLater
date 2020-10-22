@@ -29,7 +29,11 @@ public class InventoryBehavior : MonoBehaviour
     [SerializeField]
     private Sprite defaultSprite;
     // The weapon and armor inventory slots.
+    [SerializeField]
     private GameObject weaponSlot, armorSlot;
+    // The weapon and armor images.
+    [SerializeField]
+    private GameObject weaponSlotImage, armorSlotImage;
     // Used for keeping track of if an item was just moved.
     private bool justMovedItem = false;
     // Used to set the amount of slots the inventory has.
@@ -45,27 +49,14 @@ public class InventoryBehavior : MonoBehaviour
             inventorySlots.Add(child.gameObject);
             amountOfSlots++;
         }
-        int test = 1;
+
         foreach(Transform image in backgroundArea.transform)
         {
             image.gameObject.GetComponent<Image>().sprite = defaultSprite;
-            test++;
         }
 
-        // Gets the weapon and the armor slot for later use.
-        int iterator = 0;
-        foreach(Transform child in equipSlots.transform)
-        {
-            if(iterator == 0)
-            {
-                weaponSlot = child.gameObject;
-            }
-            if(iterator == 1)
-            {
-                armorSlot = child.gameObject;
-            }
-            iterator++;
-        }
+        weaponSlotImage.gameObject.GetComponent<Image>().sprite = defaultSprite;
+        armorSlotImage.gameObject.GetComponent<Image>().sprite = defaultSprite;
 
         // Sets that the inventory needs to be updated.
         needToUpdateInventoryUI = true;

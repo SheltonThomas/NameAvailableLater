@@ -759,6 +759,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 187.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661010202741435073, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421345112493739834, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7533239402659879618, guid: 64a180c57a3ca82498060f8008368281,
         type: 3}
       propertyPath: m_Sprite
@@ -783,7 +828,7 @@ PrefabInstance:
     - target: {fileID: 8868429260026599324, guid: 64a180c57a3ca82498060f8008368281,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64a180c57a3ca82498060f8008368281, type: 3}

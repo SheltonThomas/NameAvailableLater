@@ -29,12 +29,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3192875088135937748}
-  m_RootOrder: 7
+  m_Father: {fileID: 5661010202741435073}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -153}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4204967533969873050
@@ -329,8 +329,6 @@ RectTransform:
   - {fileID: 4112861551587217863}
   - {fileID: 9033076577389056369}
   - {fileID: 7459986306835337014}
-  - {fileID: 2565540857984874933}
-  - {fileID: 8007577861528982670}
   m_Father: {fileID: 6126743063445834279}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -409,12 +407,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3192875088135937748}
-  m_RootOrder: 6
+  m_Father: {fileID: 5661010202741435073}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -53}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3153595898054305641
@@ -486,7 +484,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5661010202741435073}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -643,7 +641,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5661010202741435073}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1017,6 +1015,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8007577861528982670}
+  - {fileID: 2565540857984874933}
   - {fileID: 7421345112493739834}
   - {fileID: 4350751868740117115}
   m_Father: {fileID: 6126743063445834279}
@@ -1144,6 +1144,10 @@ MonoBehaviour:
   playerInventory: {fileID: 0}
   needToUpdateInventoryUI: 0
   defaultSprite: {fileID: 21300000, guid: 8a27c0fd71e127648a9aa7f782f61e80, type: 3}
+  weaponSlot: {fileID: 4995397170768435015}
+  armorSlot: {fileID: 5481928030179326981}
+  weaponSlotImage: {fileID: 4756973953368521576}
+  armorSlotImage: {fileID: 703970053538557100}
   amountOfSlots: 0
 --- !u!1 &8868429260026599324
 GameObject:

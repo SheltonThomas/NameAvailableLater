@@ -28,6 +28,8 @@ public class Player_Attack : MonoBehaviour
     {
         //Play attack animation
         animator.SetTrigger("Attack");
+        //play sound
+
 
         //Detect enemies in range
         //Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -39,7 +41,7 @@ public class Player_Attack : MonoBehaviour
             enemy.GetComponent<enemy>().TakeDamage(attackDamage;) //multiply attack damage by any modifiers
         }
         */
-        
+
     }
 
     /*

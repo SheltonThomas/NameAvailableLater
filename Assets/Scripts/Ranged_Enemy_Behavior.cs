@@ -17,14 +17,6 @@ public class Ranged_Enemy_Behavior : MonoBehaviour
 
     public Rigidbody2D playerRigidBody;
 
-    public int maxHealth = 100; //Health modifiers?
-    int currentHealth;
-
-    void Start()
-    {
-        currentHealth = maxHealth;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -35,7 +27,7 @@ public class Ranged_Enemy_Behavior : MonoBehaviour
         Vector2 vectorFromEnemyToPlayer = playerRigidBody.position - bowPosition;
 
         float distanceFromPlayer = vectorFromEnemyToPlayer.magnitude;
-
+        //LIMIT HOW FAST HE CAN TURN
         if (distanceFromPlayer < 15)
         {
             enemyRigidBody.rotation = Mathf.Atan2(vectorFromEnemyToPlayer.y, vectorFromEnemyToPlayer.x) * Mathf.Rad2Deg + 90f;
@@ -63,26 +55,8 @@ public class Ranged_Enemy_Behavior : MonoBehaviour
     {
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.up * arrowForce, ForceMode2D.Impulse);
+        rb.AddForce(firePoint.right * arrowForce, ForceMode2D.Impulse);
 
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage; //armor?
-        //play hurt animation
-
-        if(currentHealth <= 0)
-        {
-            Die();
-        }
-
-    }
-
-    void Die()
-    {
-        Debug.Log("Enemy Died");
-        //Death animation
-        //Disable enemy
-    }
 }

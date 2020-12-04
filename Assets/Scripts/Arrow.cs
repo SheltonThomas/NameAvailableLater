@@ -5,11 +5,14 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     //public GameObject hitEffect; // can be used to add a on hit effect
-    public GameObject cam;
+    GameObject cam;
+    //GameObject player;
+    public int arrowDamage = 10;
 
     void Start()
     {
         cam = GameObject.Find("Main Camera");
+        //player = GameObject.FindWithTag("Player");
     }
 
     void Update()
@@ -23,11 +26,24 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
         }
     }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("Collision");
+        //play sound
         //Instantiate(hitEffect, transform.position, Quaternion.identity);
         //Destroy(effect, 5f);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //Debug.Log("player");
+            collision.gameObject.GetComponent<Player_Health>().TakeDamage(arrowDamage);
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //Debug.Log("enemy");
+            collision.gameObject.GetComponent<Enemy_Health>().TakeDamage(arrowDamage);
+        }
         Destroy(gameObject);
     }
+   
 }

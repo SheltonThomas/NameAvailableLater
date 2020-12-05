@@ -10,21 +10,29 @@ public class Shooting : MonoBehaviour
     Vector2 playerPosition;
     Vector3 rotation;
     public float arrowForce = 10f;
-    private float myTime;
+    private float timeSinceLastShot;
     Vector2 playerToMouseDirection; //direction from the player to the mouse
+    Player_Attack playerAttack;
+    PlayerMovement playerMovement;
 
+
+    private void Start()
+    {
+        playerAttack = gameObject.GetComponent<Player_Attack>();
+        playerMovement = GetComponent<PlayerMovement>();
+    }
     // Update is called once per frame
     void Update()
     {
-        myTime += Time.deltaTime;
-        if (Input.GetButtonDown("Fire1") && myTime > fireDelta)
+        timeSinceLastShot += Time.deltaTime;
+        if (Input.GetButtonDown("Fire2") && timeSinceLastShot > fireDelta && playerAttack.GetTimeSinceLastAttack() > playerAttack.actionDelta)
         {
-            playerToMouseDirection = GetComponent<PlayerMovement>().GetPlayerToMouseDirection();
+            playerToMouseDirection = playerMovement.GetPlayerToMouseDirection();
             playerToMouseDirection.Normalize();
             rotation.z = Mathf.Atan2(playerToMouseDirection.y, playerToMouseDirection.x) * Mathf.Rad2Deg;
-            GetComponent<PlayerMovement>().playerAngle = rotation.z + 180f;
+            playerMovement.playerAngle = rotation.z + 180f;
             Shoot();
-            myTime = 0.0f;
+            timeSinceLastShot = 0.0f;
         }
     }
 
@@ -38,5 +46,10 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.AddForce(playerToMouseDirection * arrowForce, ForceMode2D.Impulse); //adding force to the arrow in the direction it was shot (the direction of the mouse at the time it was shot)
 
+    }
+
+    public float GetTimeSinceLastShot()
+    {
+        return timeSinceLastShot;
     }
 }

@@ -41,7 +41,7 @@ public class Arrow : MonoBehaviour
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("enemy");
-            collision.gameObject.GetComponent<Enemy_Health>().TakeDamage(arrowDamage);
+            collision.gameObject.GetComponent<NonPlayerCharacter>().TakeDamage(arrowDamage);
         }
         Destroy(gameObject);
     }

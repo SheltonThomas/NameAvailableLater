@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public int Slot { get; set; }
 }

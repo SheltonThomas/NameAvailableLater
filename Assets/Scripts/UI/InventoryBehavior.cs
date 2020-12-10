@@ -62,6 +62,7 @@ public class InventoryBehavior : MonoBehaviour
         needToUpdateInventoryUI = true;
     }
 
+    #region Update UI
     private void Update()
     {
         // Updates the inventory UI if needed.
@@ -101,14 +102,15 @@ public class InventoryBehavior : MonoBehaviour
         }
 
         // If the armor or the weapon slot is null to set to the default sprite.
-        if(playerInventory.EquippedWeapon == null)
-        {
-            weaponSlot.GetComponent<Image>().sprite = defaultSprite;
-        }
-        if(playerInventory.EquippedArmor == null)
-        {
-            armorSlot.GetComponent<Image>().sprite = defaultSprite;
-        }
+        if(playerInventory.EquippedWeapon == null) weaponSlot.GetComponent<Image>().sprite = defaultSprite;
+
+        else weaponSlot.GetComponent<Image>().sprite = playerInventory.EquippedWeapon.GetComponent<SpriteRenderer>().sprite;
+        
+
+
+        if(playerInventory.EquippedArmor == null) armorSlot.GetComponent<Image>().sprite = defaultSprite;
+
+        else armorSlot.GetComponent<Image>().sprite = playerInventory.EquippedArmor.GetComponent<SpriteRenderer>().sprite;
 
         // Sets that the UI doesn't need to update anymore.
         needToUpdateInventoryUI = false;
@@ -130,6 +132,7 @@ public class InventoryBehavior : MonoBehaviour
             return;
         }
     }
+    #endregion
 
     public void RemoveItem(int index)
     {
@@ -240,6 +243,7 @@ public class InventoryBehavior : MonoBehaviour
                 // Set the item in that slot of the inventory to the item and the stack amount on the mouse.
                 playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
                 playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
+                playerInventory.GetInventoryItems()[slotIndex].GetComponent<Item>().Slot = slotIndex;
 
                 // Set the cursor to the default cursor.
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
@@ -280,6 +284,7 @@ public class InventoryBehavior : MonoBehaviour
                 // Set the player inventory item and the stack amount to what is on the mouse.
                 playerInventory.GetInventoryItems()[slotIndex] = itemOnMouse;
                 playerInventory.GetItemStacks()[slotIndex] = stackOnMouse;
+                inventorySlots[slotIndex].GetComponent<Item>().Slot = slotIndex;
 
                 // Get the new item to put on the mouse.
                 GameObject itemToPutOnMouse = itemsInSlot.tempItemInSlot;
@@ -319,6 +324,7 @@ public class InventoryBehavior : MonoBehaviour
             // Sets the sprite of the weapon slot to the item on the mouse.
             weaponSlot.GetComponent<Image>().sprite =
                 itemOnMouse.GetComponent<SpriteRenderer>().sprite;
+
             // Resets the mouse sprite.
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 

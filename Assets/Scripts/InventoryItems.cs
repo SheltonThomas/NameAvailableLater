@@ -44,7 +44,7 @@ public class InventoryItems : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Item item))
         {
             // Adds the item to the player's inventory.
-            AddItemToInventory(other);
+            AddItemToInventory(other.gameObject);
 
             // Destroys the object that was hit.
             Destroy(other.gameObject);
@@ -53,10 +53,10 @@ public class InventoryItems : MonoBehaviour
         }
     }
 
-    private void AddItemToInventory(Collider2D other)
+    public void AddItemToInventory(GameObject other)
     {
         // Checks to see if the item is in the inventory.
-        int? slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.gameObject.name]);
+        int? slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.name]);
         // If the item isn't in the inventory, return.
         if (slotToPlaceItem == null)
             return;
@@ -65,12 +65,33 @@ public class InventoryItems : MonoBehaviour
         if (inventory[(int)slotToPlaceItem] != null)
         {
             itemStack[(int)slotToPlaceItem]++;
+            inventory[(int)slotToPlaceItem].GetComponent<Item>().Slot = (int)slotToPlaceItem;
             return;
         }
         // Adds the item to the player's inventory.
-        inventory[(int)slotToPlaceItem] = (GameVariables.prefabs[other.gameObject.name]);
+        inventory[(int)slotToPlaceItem] = (GameVariables.prefabs[other.name]);
         // Sets that items stack to 1.
         itemStack[(int)slotToPlaceItem] = 1;
+        inventory[(int)slotToPlaceItem].GetComponent<Item>().Slot = (int)slotToPlaceItem;
+    }
+
+    public void AddItemToInventoryAtIndex(GameObject other, int stackAmount, int index)
+    {
+        itemStack[index]++;
+        inventory[index] = GameVariables.prefabs[other.name];
+        inventory[index].GetComponent<Item>().Slot = index;
+        itemStack[index] = stackAmount;
+    }
+
+    public void Clear()
+    {
+        inventory = new List<GameObject>();
+        itemStack = new List<int?>();
+        for (int i = 0; i < inventoryUI.amountOfSlots; i++)
+        {
+            inventory.Add(null);
+            itemStack.Add(null);
+        }
     }
 
     public int Count 
@@ -172,5 +193,10 @@ public class InventoryItems : MonoBehaviour
 
         // Set the object index to the iterator.
         objectIndex = iterator;
+    }
+
+    public void UpdateInventory()
+    {
+        inventoryUI.needToUpdateInventoryUI = true;
     }
 }

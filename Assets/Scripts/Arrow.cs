@@ -37,13 +37,15 @@ public class Arrow : MonoBehaviour
         {
             //Debug.Log("player");
             collision.gameObject.GetComponent<Player_Health>().TakeDamage(arrowDamage);
+            Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("enemy");
             collision.gameObject.GetComponent<NonPlayerCharacter>().TakeDamage(arrowDamage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
     }
    
 }

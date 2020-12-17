@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Math = System.Math;
 
 public class Ranged_Enemy : NonPlayerCharacter
 {
-
     public Transform firePoint;
     public GameObject arrowPrefab;
     public float fireDelta = 1.5f;
@@ -13,6 +13,9 @@ public class Ranged_Enemy : NonPlayerCharacter
 
     public Rigidbody2D enemyRigidBody;
     public Rigidbody2D playerRigidBody;
+
+    
+
 
     private void Start()
     {
@@ -87,8 +90,37 @@ public class Ranged_Enemy : NonPlayerCharacter
         //Debug.Log("Enemy Died");
         //Death animation
         //Death sound
+
+
         //Drop loot
-        Destroy(gameObject);
+        StartCoroutine(dropItemsAndDestroy(1f));
+        
+
+        //Destroy(gameObject);
+    }
+
+    IEnumerator dropItemsAndDestroy(float waitTime)
+    {
+        float rand_normal = (float)UsefulFunctions.NextGaussian(5, 1);
+        rand_normal = Mathf.Clamp(rand_normal, 0, 10);
+        Debug.Log(Math.Round(rand_normal));
+
+
+        for (int i = 0; i < rand_normal; i++)
+        {
+            Vector2 direction;
+            direction.x = Random.Range(-1f, 1f);
+            direction.y = Random.Range(-1f, 1f);
+            Debug.Log(direction);
+            GameObject drop = Instantiate(GameVariables.prefabs["Item 1"], (Vector2)transform.position, transform.rotation);
+            drop.name = "Item 1";
+            Debug.Log(drop);
+            Rigidbody2D rb = drop.GetComponent<Rigidbody2D>();
+            rb.MovePosition((Vector2)transform.position + direction);
+            //dir.normalized * moveSpeed * Time.deltaTime;
+        }
+        yield return new WaitForSeconds(waitTime);
+
     }
 
 }

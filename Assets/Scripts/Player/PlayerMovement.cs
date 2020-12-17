@@ -95,13 +95,10 @@ public class PlayerMovement : MonoBehaviour
         {
             print("player direction " + playerToMouseDirection);
             print("PLayer position " + rigidBody.position);
-
             playerToMouseDirection.Normalize();
-
             print("Normalized" + playerToMouseDirection);
             Vector2 a = rigidBody.position + dashDistance * playerToMouseDirection;
             print("Where it dashes to" + a);
-
             rigidBody.MovePosition(rigidBody.position + dashDistance * playerToMouseDirection); //Dashing a set distance in the direction the player is looking in
             print("PLayer position " + rigidBody.position);
         }else if (movement.magnitude != 0)
@@ -114,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Dash"))
         {
             playerToMouseDirection.Normalize();
-
             dash = dashDistance * playerToMouseDirection;  
         }
         move = rigidBody.position + (movement * movementSpeed * Time.deltaTime) + dash;
@@ -147,15 +143,11 @@ public class PlayerMovement : MonoBehaviour
             c++;
             print("player direction " + playerToMouseDirection);
             print("PLayer position " + rigidBody.position);
-
             playerToMouseDirection.Normalize();
-
             print("Normalized" + playerToMouseDirection);
             Vector2 a = rigidBody.position + dashDistance * playerToMouseDirection;
             print("Where it dashes to" + a);
-
             rigidBody.MovePosition(rigidBody.position + dashDistance * playerToMouseDirection); //Dashing a set distance in the direction the player is looking in
-
         }
         else
         {

@@ -17,7 +17,6 @@ public class InventoryBehavior : MonoBehaviour
     [SerializeField]
     private GameObject backgroundArea;
     // An instance of the player's inventory.
-    [HideInInspector]
     public InventoryItems playerInventory;
     // Used to check if the inventory is updated.
     [HideInInspector]
@@ -40,7 +39,7 @@ public class InventoryBehavior : MonoBehaviour
     public int amountOfSlots = 0;
 
 
-    void Start()
+    void Awake()
     {
         // Sets the inventory slots to the slots on the canvas.
         inventorySlots = new List<GameObject>();
@@ -77,7 +76,7 @@ public class InventoryBehavior : MonoBehaviour
         // Gets the player's items to update the UI.
         List<GameObject> playerInventoryItems = playerInventory.GetInventoryItems();
         // Gets the player's items stacks to update the UI.
-        List<int?> playerItemStack = playerInventory.GetItemStacks();
+        List<int> playerItemStack = playerInventory.GetItemStacks();
         // If the player has items in their inventory then update all items.
         if (playerInventoryItems.Count > 0)
         {

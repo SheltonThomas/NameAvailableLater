@@ -14,7 +14,7 @@ public class PlayerData
     public string armorSlot;
 
     //Finish implementing equppied weapon and armor saving and loading
-    public PlayerData(PlayerInfo info, InventoryItems inventoryItems)
+    public PlayerData(Stats info, InventoryItems inventoryItems)
     {
         health = info.GetPlayerHealth();
         if (info.EquippedWeapon != null) weaponSlot = info.EquippedWeapon.name;

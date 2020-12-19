@@ -11,7 +11,7 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData playerData = new PlayerData(GameObject.Find("Player").GetComponent<PlayerInfo>(), GameObject.Find("Player").GetComponent<InventoryItems>());
+        PlayerData playerData = new PlayerData(GameObject.Find("Player").GetComponent<CollisionBehavior>().playerStats, GameObject.Find("Player").GetComponent<CollisionBehavior>().playerInventory);
 
         formatter.Serialize(stream, playerData);
         stream.Close();

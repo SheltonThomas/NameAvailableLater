@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfo : MonoBehaviour
+[CreateAssetMenu(menuName = "Player Info")]
+public class Stats : ScriptableObject
 {
     private float _health = 100;
+    [SerializeField]
     private InventoryItems _inventoryItems;
 
     public void SavePlayer()
@@ -38,11 +40,6 @@ public class PlayerInfo : MonoBehaviour
         _inventoryItems.UpdateInventory();
 
         GameObject.Find("Inventory").GetComponent<InventoryBehavior>().needToUpdateInventoryUI = true;
-    }
-
-    private void Start()
-    {
-        _inventoryItems = GameObject.Find("Player").GetComponent<InventoryItems>();
     }
 
     public float GetPlayerHealth()

@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1274749561}
+      - m_Target: {fileID: 11400000, guid: 3740a71679c584144b736c025c365be3, type: 2}
         m_MethodName: LoadPlayer
         m_Mode: 1
         m_Arguments:
@@ -418,7 +418,6 @@ GameObject:
   - component: {fileID: 1274749558}
   - component: {fileID: 1274749559}
   - component: {fileID: 1274749560}
-  - component: {fileID: 1274749561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -581,27 +580,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274749553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 776522e906d643040ad4c3a80ed8eacc, type: 3}
+  m_Script: {fileID: 11500000, guid: dcf145bac35a0ad46b1bedf333ca1459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &1274749561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274749553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74dda386f7bd3f14ea14cfe5820dc8f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerStats: {fileID: 11400000, guid: 3740a71679c584144b736c025c365be3, type: 2}
+  playerInventory: {fileID: 11400000, guid: b4ecd8a3617519745b2ad92eb7d56fd2, type: 2}
 --- !u!1 &1298567915
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +667,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1274749561}
+      - m_Target: {fileID: 11400000, guid: 3740a71679c584144b736c025c365be3, type: 2}
         m_MethodName: SavePlayer
         m_Mode: 1
         m_Arguments:
@@ -1252,6 +1235,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 8382192711042871823, guid: 64a180c57a3ca82498060f8008368281,
+        type: 3}
+      propertyPath: playerInventory
+      value: 
+      objectReference: {fileID: 11400000, guid: b4ecd8a3617519745b2ad92eb7d56fd2,
+        type: 2}
     - target: {fileID: 8868429260026599324, guid: 64a180c57a3ca82498060f8008368281,
         type: 3}
       propertyPath: m_IsActive
@@ -1555,6 +1544,12 @@ PrefabInstance:
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 1423299804}
+    - target: {fileID: 7829107905856669203, guid: 58a05fde043a12c48893eef9931a74cf,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 3740a71679c584144b736c025c365be3,
+        type: 2}
     - target: {fileID: 8727095439045967661, guid: 58a05fde043a12c48893eef9931a74cf,
         type: 3}
       propertyPath: m_RootOrder

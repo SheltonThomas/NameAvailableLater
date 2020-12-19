@@ -3,60 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class InventoryItems : MonoBehaviour
+[CreateAssetMenu(fileName = "Item List")]
+public class InventoryItems : ScriptableObject
 {
-    // Makes an inventory for the player.
     [SerializeField]
-    private List<GameObject> inventory;
+    // Makes an inventory for the player.
+    private List<GameObject> inventory = new List<GameObject>();
 
     // Keeps track of the items stacked in the inventory;
     [SerializeField]
-    private List<int?> itemStack;
-
-    // Gets the UI for the inventory.
-    private InventoryBehavior inventoryUI;
+    private List<int> itemStack = new List<int>();
+    public InventoryBehavior inventoryUI;
 
     // Equipped weapon and armor.
     public GameObject EquippedWeapon { get; set; }
     public GameObject EquippedArmor { get; set; }
 
-    private void Start()
-    {
-        // Gets the inventory UI.
-        inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryBehavior>();
-        // Initializes the player inventory.
-        inventory = new List<GameObject>();
-        // Initializes the item stacks.
-        itemStack = new List<int?>();
-        // Sets the UI's instance of the player's inventory to the current script.
-        inventoryUI.playerInventory = this;
-        // Sets the slots of the inventory to null.
-        for(int i = 0; i < inventoryUI.amountOfSlots; i++)
-        {
-            inventory.Add(null);
-            itemStack.Add(null);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // If collided with something with the Item component
-        if (other.gameObject.TryGetComponent(out Item item))
-        {
-            // Adds the item to the player's inventory.
-            AddItemToInventory(other.gameObject);
-
-            // Destroys the object that was hit.
-            Destroy(other.gameObject);
-            // Marks that the inventory has to be updated.
-            inventoryUI.needToUpdateInventoryUI = true;
-        }
-    }
-
     public void AddItemToInventory(GameObject other)
     {
         // Checks to see if the item is in the inventory.
-        int? slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.name]);
+        int? slotToPlaceItem = null;
+        slotToPlaceItem = CheckInventory(GameVariables.prefabs[other.name]);
         // If the item isn't in the inventory, return.
         if (slotToPlaceItem == null)
             return;
@@ -66,6 +33,7 @@ public class InventoryItems : MonoBehaviour
         {
             itemStack[(int)slotToPlaceItem]++;
             inventory[(int)slotToPlaceItem].GetComponent<Item>().Slot = (int)slotToPlaceItem;
+            UpdateInventory();
             return;
         }
         // Adds the item to the player's inventory.
@@ -73,6 +41,7 @@ public class InventoryItems : MonoBehaviour
         // Sets that items stack to 1.
         itemStack[(int)slotToPlaceItem] = 1;
         inventory[(int)slotToPlaceItem].GetComponent<Item>().Slot = (int)slotToPlaceItem;
+        UpdateInventory();
     }
 
     public void AddItemToInventoryAtIndex(GameObject other, int stackAmount, int index)
@@ -86,12 +55,13 @@ public class InventoryItems : MonoBehaviour
     public void Clear()
     {
         inventory = new List<GameObject>();
-        itemStack = new List<int?>();
+        itemStack = new List<int>();
         for (int i = 0; i < inventoryUI.amountOfSlots; i++)
         {
             inventory.Add(null);
-            itemStack.Add(null);
+            itemStack.Add(0);
         }
+        UpdateInventory();
     }
 
     public int Count 
@@ -124,7 +94,7 @@ public class InventoryItems : MonoBehaviour
     }
 
     // Returns the item stacks when in other scripts.
-    public List<int?> GetItemStacks()
+    public List<int> GetItemStacks()
     {
         return itemStack;
     }

@@ -7,7 +7,8 @@ public class HealthBarBehavior : MonoBehaviour
 {
     [SerializeField]
     private Slider healthUI;
-    private PlayerInfo player;
+    [SerializeField]
+    private Stats player;
     [SerializeField]
     private Button inventoryButton;
     [SerializeField]
@@ -16,7 +17,6 @@ public class HealthBarBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerInfo>();
         healthUI.maxValue = player.GetPlayerHealth();
         healthUI.value = player.GetPlayerHealth();
     }
